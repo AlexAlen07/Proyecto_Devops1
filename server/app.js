@@ -6,11 +6,9 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Conectado a MongoDB"))
+  .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
 
 // Modelo de datos
 const Dato = mongoose.model("Dato", new mongoose.Schema({
@@ -21,21 +19,31 @@ const Dato = mongoose.model("Dato", new mongoose.Schema({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Rutas
+// Ruta POST para guardar un dato
 app.post("/api/datos", async (req, res) => {
-  // Validación del tamano del nombre
-  if (!req.body.nombre || req.body.nombre.length < 3) {
-    return res.status(400).send("Nombre inválido");
-  }
+  try {
+    const { nombre } = req.body;
 
-  // Si la validación pasa, se guarda el dato en la base de datos
-  const nuevo = new Dato({ nombre: req.body.nombre });
-  await nuevo.save(); // Guarda en la base de datos
-  res.sendStatus(201); // Respuesta de éxito
-  res.status(500).send("Error al guardar"); // Error
+    if (!nombre || nombre.length < 3) {
+      return res.status(400).send("Nombre inválido");
+    }
+
+    const nuevo = new Dato({ nombre });
+    await nuevo.save();
+
+    res.sendStatus(201); // Éxito
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    res.status(500).send("Error al guardar el dato");
+  }
 });
 
+// Export para pruebas
+module.exports = app;
 
-
-// Servidor
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+// Servidor (solo si no es importado por Jest)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  });
+}
