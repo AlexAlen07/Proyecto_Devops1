@@ -43,7 +43,7 @@ app.post("/api/datos", async (req, res) => {
   }
 });
 
-export default app;
+module.exports = app;
 
 // Servidor (solo si no es importado por Jest)
 if (require.main === module) {

@@ -1,6 +1,6 @@
-import request from 'supertest'; // Cambiado a 'import'
-import mongoose from 'mongoose';
-import app from './app'; // Cambiado a 'import'
+const request = require('supertest'); // Cambiado a 'import'
+const mongoose = require('mongoose');
+const app = require('./app'); // Cambiado a 'import'
 
 jest.setTimeout(10000); // 10 segundos de timeout
 
