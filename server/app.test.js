@@ -1,8 +1,8 @@
-jest.setTimeout(10000); // 10 segundos de timeout
+import request from 'supertest'; // Cambiado a 'import'
+import mongoose from 'mongoose';
+import app from './app'; // Cambiado a 'import'
 
-const request = require('supertest');
-const mongoose = require('mongoose');
-const app = require('./app');
+jest.setTimeout(10000); // 10 segundos de timeout
 
 describe('GET /', () => {
   it('should return 200 OK', async () => {

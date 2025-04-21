@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
-import express from 'express';
-import mongoose from 'mongoose';
-import path from 'path';
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -46,7 +44,7 @@ app.post("/api/datos", async (req, res) => {
 });
 
 // Export para pruebas
-export default app;
+module.exports = app; // Usamos module.exports en lugar de export default
 
 // Servidor (solo si no es importado por Jest)
 if (require.main === module) {
