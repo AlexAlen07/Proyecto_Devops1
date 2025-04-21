@@ -7,8 +7,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Conectado a MongoDB"))
-  .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
+  .then(() => console.log("Conectado a MongoDB"))
+  .catch(err => console.error("Error al conectar a MongoDB:", err));
 
 // Modelo de datos
 const Dato = mongoose.model("Dato", new mongoose.Schema({
@@ -44,6 +44,6 @@ module.exports = app;
 // Servidor (solo si no es importado por Jest)
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
 }
