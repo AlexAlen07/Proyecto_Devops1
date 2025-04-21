@@ -1,7 +1,9 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import mongoose from 'mongoose';
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,6 +20,11 @@ const Dato = mongoose.model("Dato", new mongoose.Schema({
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
+
+// Ruta GET para la raíz
+app.get("/", (req, res) => {
+  res.status(200).send("¡Bienvenidos a nuestro portal web!"); // Respuesta 200 OK
+});
 
 // Ruta POST para guardar un dato
 app.post("/api/datos", async (req, res) => {
@@ -39,7 +46,7 @@ app.post("/api/datos", async (req, res) => {
 });
 
 // Export para pruebas
-module.exports = app;
+export default app;
 
 // Servidor (solo si no es importado por Jest)
 if (require.main === module) {
