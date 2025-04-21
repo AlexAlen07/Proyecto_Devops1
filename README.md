@@ -1,4 +1,3 @@
-# Proyecto_Devops1
 ## Proyecto Final DevOps
 
 Esta es una aplicación web simple desarrollada con Node.js, Express, y MongoDB. El frontend está hecho con HTML, CSS, y JavaScript, y la aplicación permite guardar un nombre en la base de datos.
